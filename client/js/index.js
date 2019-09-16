@@ -391,6 +391,36 @@ $('#mobile .zip-try').click(function () {
     return false;
 });
 
+$('#pyqt .zip-download').click(function () {
+    try {
+        var start = new Date();
+        saveAs(ifml2code.pyqt(ifml.toJSON(ifmlModel)).generate({type: 'blob'}), 'pyqtexample.zip');
+        $.notify({message: 'Convertion completed in ' + (Math.floor((new Date() - start) / 10) / 100) + ' seconds!'}, {allow_dismiss: true, type: 'success'});
+    } catch (e) {
+        if (e instanceof AException) {
+            $.notify({title: "<strong>Convertion Failed</strong><br>", message: e.message.replace(/\n/g, '<br>')}, {allow_dismiss: true, type: 'danger'});
+        } else {
+            $.notify({title: 'Convertion Failed.'}, {allow_dismiss: true, type: 'danger'});
+        }
+    }
+    return false;
+});
+
+$('#pyqt .zip-try').click(function () {
+    try {
+        var start = new Date();
+        ifclient.start(ifml2code.pyqt(ifml.toJSON(ifmlModel)).generate({type: 'string'}));
+        $.notify({message: 'Convertion completed in ' + (Math.floor((new Date() - start) / 10) / 100) + ' seconds!'}, {allow_dismiss: true, type: 'success'});
+    } catch (e) {
+        if (e instanceof AException) {
+            $.notify({title: "<strong>Convertion Failed</strong><br>", message: e.message.replace(/\n/g, '<br>')}, {allow_dismiss: true, type: 'danger'});
+        } else {
+            $.notify({title: 'Convertion Failed.'}, {allow_dismiss: true, type: 'danger'});
+        }
+    }
+    return false;
+});
+
 $('#web-server .edit-db').click(function () {
     createModalDB({emulator: ifbrowser});
     return false;
