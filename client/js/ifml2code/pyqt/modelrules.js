@@ -25,17 +25,17 @@ exports.rules = [
                     .map(function (e) { return {id: e.id, name: e.attributes.name}; })
                     .value();
             return {
-                '': {isFolder: true, children: 'flutterexample'},
-                'flutterexample' : { isFolder: true, name: 'flutterexample', children: ['lib', 'pubspec']},
-                'lib': {isFolder: true, name: 'lib', children: ['main', 'main-application', 'actions', 'widgets', 'events', 'commands', 'repositories']},
-                'main': {name: 'main.dart', content: require('./templates/main.dart.ejs')()},
-                'main-application': {name: 'main_application.dart', content: require('./templates/main_application.dart.ejs')({children: children, defaultChild: defaultChild, landmarks: landmarks})},
-                'actions': {isFolder: true, name: 'actions'},
-                'widgets': {isFolder: true, name: 'widgets'},
-                'events': {isFolder: true, name: 'events'},
-                'repositories': {isFolder: true, name: 'repositories'},
-                'commands': {name: 'commands.dart', content: require('./templates/commands.dart.ejs')()},
-                'pubspec': {name: 'pubspec.yaml', content: require('./templates/pubspec.yaml.ejs')()},
+                '': {isFolder: true, children: 'pyqtexample'},
+                'pyqtexample' : { isFolder: true, name: 'pyqtexample', children: ['src']},
+                'lib': {isFolder: true, name: 'src', children: ['main', 'main-application', 'actions', 'widgets', 'events', 'commands', 'repositories']},
+                //'main': {name: 'main.dart', content: require('./templates/main.dart.ejs')()},
+                'main-application': {name: 'mainapplication.py', content: require('./templates/mainapplication.py.ejs')({children: children, defaultChild: defaultChild, landmarks: landmarks})},
+                //'actions': {isFolder: true, name: 'actions'},
+                //'widgets': {isFolder: true, name: 'widgets'},
+                //'events': {isFolder: true, name: 'events'},
+                //'repositories': {isFolder: true, name: 'repositories'},
+                //'commands': {name: 'commands.dart', content: require('./templates/commands.dart.ejs')()},
+                //'pubspec': {name: 'pubspec.yaml', content: require('./templates/pubspec.yaml.ejs')()},
             };
         }
     ),
