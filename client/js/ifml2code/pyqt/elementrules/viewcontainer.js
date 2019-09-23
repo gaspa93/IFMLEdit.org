@@ -1,4 +1,4 @@
-// Copyright (c) 2016, the IFMLEdit.org project authors. Please see the
+// Copyright (c) 2017, the IFMLEdit.org project authors. Please see the
 // AUTHORS file for details. All rights reserved. Use of this source code is
 // governed by the MIT license that can be found in the LICENSE file.
 /*jslint node: true, nomen: true */
@@ -13,6 +13,7 @@ exports.rules = [
         function (element, model) { return model.isViewContainer(element) && !model.isXOR(element); },
         function (container, model) {
             var id = model.toId(container),
+                name = container.attributes.name,
                 children = _.chain(model.getChildren(container))
                     .reject(function (id) { return model.isEvent(id); })
                     .map(function (id) { return {id: id, name: model.toElement(id).attributes.name}; })
@@ -21,14 +22,12 @@ exports.rules = [
                     .filter(function (id) { return model.isEvent(id); })
                     .filter(function (id) { return model.getOutbounds(id).length; })
                     .map(function (id) { return model.toElement(id); })
-                    .map(function (event) { return { id: model.toId(event), name: event.attributes.name, stereotype: event.attributes.stereotype }; })
+                    .map(function (event) { return { id: model.toId(event), name: event.attributes.name}; })
                     .value(),
                 obj = {
-                    controls: {children: 'C-' + id}
+                    widgets: {children: 'w-' + id}
                 };
-            obj['C-' + id] = {isFolder: true, name: 'c-' + id, children: ['C-' + id + '-VM', 'C-' + id + '-V']};
-            obj['C-' + id + '-VM'] = {name: 'index.js', content: require('./templates/nonxor-vm.js.ejs')({id: id, children: children})};
-            obj['C-' + id + '-V'] = {name: 'index.html', content: require('./templates/nonxor-v.html.ejs')({children: children, events: events})};
+            obj['w-' + id] = {name: id + '.dart', content: require('./templates/nonxor.dart.ejs')({id: id, name: name, children: children, events: events})};
             return obj;
         }
     ),
@@ -36,30 +35,29 @@ exports.rules = [
         function (element, model) { return model.isViewContainer(element) && model.isXOR(element); },
         function (container, model) {
             var id = model.toId(container),
+                name = container.attributes.name,
                 children = _.chain(model.getChildren(container))
                     .filter(function (id) { return model.isViewContainer(id); })
                     .map(function (id) { return model.toElement(id); })
                     .map(function (e) { return {id: e.id, name: e.attributes.name}; })
                     .value(),
-                defaultChild = _.chain(model.getChildren(container))
-                    .filter(function (id) { return model.isDefault(id); })
-                    .first()
-                    .value(),
-                landmarks = _.chain(children)
-                    .filter(function (c) { return model.isLandmark(c.id); })
-                    .value(),
                 events = _.chain(model.getChildren(container))
                     .filter(function (id) { return model.isEvent(id); })
                     .filter(function (id) { return model.getOutbounds(id).length; })
                     .map(function (id) { return model.toElement(id); })
-                    .map(function (event) { return { id: model.toId(event), name: event.attributes.name, stereotype: event.attributes.stereotype }; })
+                    .map(function (event) { return { id: model.toId(event), name: event.attributes.name}; })
+                    .value(),
+                landmarks = _.chain(children)
+                    .filter(function (c) { return model.isLandmark(c.id); })
+                    .value(),
+                defaultChild = _.chain(model.getChildren(container))
+                    .filter(function (id) { return model.isDefault(id); })
+                    .first()
                     .value(),
                 obj = {
-                    controls: {children: 'C-' + id}
+                    widgets: {children: 'w-' + id}
                 };
-            obj['C-' + id] = {isFolder: true, name: 'c-' + id, children: ['C-' + id + '-VM', 'C-' + id + '-V']};
-            obj['C-' + id + '-VM'] = {name: 'index.js', content: require('./templates/xor-vm.js.ejs')({id: id, defaultChild: defaultChild})};
-            obj['C-' + id + '-V'] = {name: 'index.html', content: require('./templates/xor-v.html.ejs')({children: children, landmarks: landmarks, events: events})};
+            obj['w-' + id] = {name: id + '.dart', content: require('./templates/xor.dart.ejs')({id: id, name: name, children: children, defaultChild: defaultChild, events: events, landmarks: landmarks})};
             return obj;
         }
     )

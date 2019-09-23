@@ -1,4 +1,4 @@
-// Copyright (c) 2016, the IFMLEdit.org project authors. Please see the
+// Copyright (c) 2017, the IFMLEdit.org project authors. Please see the
 // AUTHORS file for details. All rights reserved. Use of this source code is
 // governed by the MIT license that can be found in the LICENSE file.
 /*jslint node: true, nomen: true */
@@ -38,7 +38,7 @@ exports.rules = [
                     .filter(function (id) { return model.isEvent(id); })
                     .filter(function (event) { return model.getOutbounds(event).length; })
                     .map(function (id) { return model.toElement(id); })
-                    .map(function (event) { return { id: model.toId(event), name: event.attributes.name, stereotype: event.attributes.stereotype}; })
+                    .map(function (event) { return { id: model.toId(event), name: event.attributes.name, stereotype: event.attributes.stereotype, bindings: model.toElement(model.getOutbounds(event)[0]).attributes.bindings}; })
                     .value(),
                 events = _.chain(unfilteredevents)
                     .reject({stereotype: 'selection'})
@@ -48,11 +48,9 @@ exports.rules = [
                     .first()
                     .value(),
                 obj = {
-                    controls: {children: 'C-' + id}
+                    widgets: {children: 'c-' + id}
                 };
-            obj['C-' + id] = {isFolder: true, name: 'c-' + id, children: ['C-' + id + '-VM', 'C-' + id + '-V']};
-            obj['C-' + id + '-VM'] = {name: 'index.js', content: require('./templates/list-vm.js.ejs')({id: id, selection: selection, collection: collection, filters: filters, fields: fields, incomings: incomings})};
-            obj['C-' + id + '-V'] = {name: 'index.html', content: require('./templates/list-v.html.ejs')({name: name, events: events, fields: fields, showSelection: showSelection})};
+            obj['c-' + id] = {name: id + '.dart', content: require('./templates/list.dart.ejs')({id: id, name: name, selection: selection, showSelection: showSelection, collection: collection, filters: filters, fields: fields, incomings: incomings, events: events})};
             return obj;
         }
     ),
@@ -75,14 +73,12 @@ exports.rules = [
                     .filter(function (id) { return model.isEvent(id); })
                     .filter(function (id) { return model.getOutbounds(id).length; })
                     .map(function (id) { return model.toElement(id); })
-                    .map(function (event) { return { id: model.toId(event), name: event.attributes.name, stereotype: event.attributes.stereotype}; })
+                    .map(function (event) { return { id: model.toId(event), name: event.attributes.name, bindings: model.toElement(model.getOutbounds(event)[0]).attributes.bindings}; })
                     .value(),
                 obj = {
-                    controls: {children: 'C-' + id}
+                    widgets: {children: 'c-' + id}
                 };
-            obj['C-' + id] = {isFolder: true, name: 'c-' + id, children: ['C-' + id + '-VM', 'C-' + id + '-V']};
-            obj['C-' + id + '-VM'] = {name: 'index.js', content: require('./templates/details-vm.js.ejs')({id: id, collection: collection, fields: fields, incomings: incomings})};
-            obj['C-' + id + '-V'] = {name: 'index.html', content: require('./templates/details-v.html.ejs')({name: name, events: events, fields: fields})};
+            obj['c-' + id] = {name: id + '.dart', content: require('./templates/details.dart.ejs')({id: id, name: name, collection: collection, fields: fields, incomings: incomings, events: events})};
             return obj;
         }
     ),
@@ -104,14 +100,12 @@ exports.rules = [
                     .filter(function (id) { return model.isEvent(id); })
                     .filter(function (id) { return model.getOutbounds(id).length; })
                     .map(function (id) { return model.toElement(id); })
-                    .map(function (event) { return { id: model.toId(event), name: event.attributes.name, stereotype: event.attributes.stereotype}; })
+                    .map(function (event) { return { id: model.toId(event), name: event.attributes.name, bindings: model.toElement(model.getOutbounds(event)[0]).attributes.bindings}; })
                     .value(),
                 obj = {
-                    controls: {children: 'C-' + id}
+                    widgets: {children: 'c-' + id}
                 };
-            obj['C-' + id] = {isFolder: true, name: 'c-' + id, children: ['C-' + id + '-VM', 'C-' + id + '-V']};
-            obj['C-' + id + '-VM'] = {name: 'index.js', content: require('./templates/form-vm.js.ejs')({id: id, fields: fields, incomings: incomings})};
-            obj['C-' + id + '-V'] = {name: 'index.html', content: require('./templates/form-v.html.ejs')({id: id, name: name, events: events, fields: fields})};
+            obj['c-' + id] = {name: id + '.dart', content: require('./templates/form.dart.ejs')({id: id, name: name, fields: fields, incomings: incomings, events: events})};
             return obj;
         }
     )

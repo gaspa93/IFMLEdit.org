@@ -1,4 +1,4 @@
-// Copyright (c) 2016, the IFMLEdit.org project authors. Please see the
+// Copyright (c) 2017, the IFMLEdit.org project authors. Please see the
 // AUTHORS file for details. All rights reserved. Use of this source code is
 // governed by the MIT license that can be found in the LICENSE file.
 /*jslint node: true, nomen: true */
@@ -11,5 +11,4 @@ exports.rules = _([])
                 .concat(require('./viewcomponent').rules)
                 .concat(require('./navigationflow').rules)
                 .concat(require('./action').rules)
-                .concat(require('./systemEvent').rules)
                 .value();

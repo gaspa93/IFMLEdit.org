@@ -1,4 +1,4 @@
-// Copyright (c) 2016, the IFMLEdit.org project authors. Please see the
+// Copyright (c) 2017, the IFMLEdit.org project authors. Please see the
 // AUTHORS file for details. All rights reserved. Use of this source code is
 // governed by the MIT license that can be found in the LICENSE file.
 /*jslint node: true, nomen: true */
@@ -18,7 +18,7 @@ exports.rules = [
             var event = model.getSource(flow),
                 id = model.toId(event),
                 target = model.getTargetId(flow),
-                targetTop = model.getTopLevelAncestorId(target),
+                targetTop = model.getTopLevelAncestor(target).id,
                 targetActives = _.chain(model.getAncestors(target, true))
                     .filter(function (id) { return model.isViewContainer(id); })
                     .filter(function (id) { return model.isXOR(model.getParent(id)); })
@@ -35,10 +35,11 @@ exports.rules = [
                     })
                     .first()
                     .value(),
+                forceBindings = model.isAction(model.getTarget(flow)),
                 obj = {
-                    navigations: {children: 'E-' + id}
+                    events: {children: 'e-' + id}
                 };
-            obj['E-' + id] = {name: id + '.js', content: require('./templates/navigation.js.ejs')({id: id, target: target, targetTop: targetTop, targetActives: targetActives, bindings: bindings})};
+            obj['e-' + id] = {name: id + '.dart', content: require('./templates/event.dart.ejs')({id: id, target: target, targetTop: targetTop, targetActives: targetActives, bindings: bindings, forceBindings: forceBindings})};
             return obj;
         }
     ),
@@ -65,9 +66,9 @@ exports.rules = [
                     .first()
                     .value(),
                 obj = {
-                    navigations: {children: 'E-' + id}
+                    events: {children: 'e-' + id}
                 };
-            obj['E-' + id] = {name: id + '.js', content: require('./templates/navigation-to-action.js.ejs')({id: id, containerId: containerId, target: target, bindings: bindings})};
+            obj['e-' + id] = {name: id + '.dart', content: require('./templates/event-to-action.dart.ejs')({id: id, containerId: containerId, target: target, bindings: bindings})};
             return obj;
         }
     )
