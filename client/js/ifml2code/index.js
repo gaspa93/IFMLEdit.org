@@ -11,6 +11,7 @@ var _ = require('lodash'),
     ifml2client = require('./client').transform,
     ifml2mobile = require('./mobile').transform,
     ifml2flutter = require('./flutter'),
+    ifml2pyqt = require('./pyqt').transform,
     ifml2code = { };
 
 exports.ifml2code = ifml2code;
@@ -32,5 +33,10 @@ ifml2code.mobile = function (ifmlModel) {
 
 ifml2code.flutter = function (ifmlModel) {
     var transformed = ifml2mobile(ifml.extend(ifmlModel));
+    return compact(transformed);
+};
+
+ifml2code.pyqt = function (ifmlModel) {
+    var transformed = ifml2pyqt(ifml.extend(ifmlModel));
     return compact(transformed);
 };
