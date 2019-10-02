@@ -39,6 +39,7 @@ exports.rules = [
             };
         }
     ),
+    /*
     createRule(
         Rule.always,
         function (model) {
@@ -69,4 +70,5 @@ exports.rules = [
             return obj;
         }
     )
+    */
 ];

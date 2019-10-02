@@ -436,4 +436,9 @@ $('#mobile .edit-db').click(function () {
     return false;
 });
 
+$('#pyqt .edit-db').click(function () {
+    createModalDB({emulator: pyqt});
+    return false;
+});
+
 $('#pcn').removeClass('active');

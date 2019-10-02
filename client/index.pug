@@ -56,6 +56,8 @@ html
                             li(role='presentation')
                                 a(role='tab', data-toggle='tab', aria-controls='mobile', href='#mobile') Mobile
                             li(role='presentation')
+                                a(role='tab', data-toggle='tab', aria-controls='pyqt', href='#pyqt') PyQt
+                            li(role='presentation')
                                 a(role='tab', data-toggle='tab', aria-controls='statistics', href='#statistics') Statistics
                             li(role='presentation')
                                 a(role='tab', data-toggle='tab', aria-controls='about', href='#about') About
@@ -305,40 +307,74 @@ html
                                                     br
                                                     span.text-primary cordova&nbsp;
                                                     span.text-success run ...
-                                    #flutter.tab-pane(role='tabpanel')
-                                        .alert.alert-warning(role="alert") Experimental
-                                        h3 Or...
-                                        a.btn.btn-primary.zip-download(href='#!') Download the Source Files
-                                        h3 Once downloaded...
-                                        ol
-                                            li
-                                                | Install&nbsp;
-                                                strong Flutter®
-                                                | &nbsp;following the instructions on the&nbsp;
-                                                a(href='https://flutter.io/setup/') official website
-                                            li
-                                                | Unpack the
-                                                code flutterexample.zip
-                                                | file
-                                            li
-                                                | Open a terminal and navigate to the folder where you unpacked the zip
-                                            li
-                                                | Create all the support files:
-                                                pre
-                                                    span.text-primary flutter&nbsp;
-                                                    span.text-success create&nbsp;
-                                                    span.text-success flutterexample
-                                            li
-                                                | Run the application:
-                                                pre
-                                                    span.text-primary cd&nbsp;
-                                                    span.text-success path_to_workspace/mobileexample
-                                                    br
-                                                    span.text-primary flutter&nbsp;
-                                                    span.text-success run
+                    #flutter.tab-pane(role='tabpanel')
+                        .alert.alert-warning(role="alert") Experimental
+                        h3 Or...
+                        a.btn.btn-primary.zip-download(href='#!') Download the Source Files
+                        h3 Once downloaded...
+                        ol
+                            li
+                                | Install&nbsp;
+                                strong Flutter®
+                                | &nbsp;following the instructions on the&nbsp;
+                                a(href='https://flutter.io/setup/') official website
+                            li
+                                | Unpack the
+                                code flutterexample.zip
+                                | file
+                            li
+                                | Open a terminal and navigate to the folder where you unpacked the zip
+                            li
+                                | Create all the support files:
+                                pre
+                                    span.text-primary flutter&nbsp;
+                                    span.text-success create&nbsp;
+                                    span.text-success flutterexample
+                            li
+                                | Run the application:
+                                pre
+                                    span.text-primary cd&nbsp;
+                                    span.text-success path_to_workspace/mobileexample
+                                    br
+                                    span.text-primary flutter&nbsp;
+                                    span.text-success run
+                br
+                br
+                br
+                #pyqt.tab-pane(role='tabpanel')
+                    .alert.alert-warning(role="alert") Experimental
+                    h3 Or...
+                    a.btn.btn-primary.zip-download(href='#!') Download the Source Files
+                    h3 Once downloaded...
+                    ol
+                        li
+                            | Install&nbsp;
+                            strong PyQt4®
+                            | &nbsp;following the instructions on the&nbsp;
+                            a(href='https://flutter.io/setup/') official website
+                        li
+                            | Unpack the
+                            code pyqtexample.zip
+                            | file
+                        li
+                            | Open a terminal and navigate to the folder where you unpacked the zip
+                        li
+                            | Create all the support files:
+                            pre
+                                span.text-primary flutter&nbsp;
+                                span.text-success create&nbsp;
+                                span.text-success flutterexample
+                        li
+                            | Run the application:
+                            pre
+                                span.text-primary cd&nbsp;
+                                span.text-success path_to_workspace/mobileexample
                                 br
-                                br
-                                br
+                                span.text-primary flutter&nbsp;
+                                span.text-success run
+                br
+                br
+                br
                 #about.tab-pane(role='tabpanel')
                     .container
                         .row
