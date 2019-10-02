@@ -27,7 +27,7 @@ exports.rules = [
             return {
                 '': {isFolder: true, children: 'pyqtexample'},
                 'pyqtexample' : { isFolder: true, name: 'pyqtexample', children: ['src']},
-                'lib': {isFolder: true, name: 'src', children: ['main', 'main-application', 'actions', 'widgets', 'events', 'commands', 'repositories']},
+                'src': {isFolder: true, name: 'src', children: ['main-application']},
                 //'main': {name: 'main.dart', content: require('./templates/main.dart.ejs')()},
                 'main-application': {name: 'mainapplication.py', content: require('./templates/mainapplication.py.ejs')({children: children, defaultChild: defaultChild, landmarks: landmarks})},
                 //'actions': {isFolder: true, name: 'actions'},
