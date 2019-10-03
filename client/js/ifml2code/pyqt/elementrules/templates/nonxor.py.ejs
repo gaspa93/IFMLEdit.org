@@ -1,0 +1,19 @@
+from PyQt4 import QtGui
+
+<% for (var i = 0; i < children.length; i++) { -%>
+import <%=children[i].id %> as C<%=i %>
+<% }
+   for (var i = 0; i < events.length; i++) { -%>
+import ../events/<%=events[i].id %> as E<%=i %>
+<% } -%>
+
+def widget():
+    w = QtGui.QWidget()
+    w.setGeometry(100,100,200,50)
+    w.setWindowTitle("<%= id %>")
+
+    b = QtGui.QLabel(w)
+    b.setText("Text from <%= id %>")
+    b.move(50,20)
+
+    return w

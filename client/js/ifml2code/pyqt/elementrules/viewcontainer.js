@@ -1,4 +1,4 @@
-// Copyright (c) 2017, the IFMLEdit.org project authors. Please see the
+// Copyright (c) 2016, the IFMLEdit.org project authors. Please see the
 // AUTHORS file for details. All rights reserved. Use of this source code is
 // governed by the MIT license that can be found in the LICENSE file.
 /*jslint node: true, nomen: true */
@@ -13,7 +13,6 @@ exports.rules = [
         function (element, model) { return model.isViewContainer(element) && !model.isXOR(element); },
         function (container, model) {
             var id = model.toId(container),
-                name = container.attributes.name,
                 children = _.chain(model.getChildren(container))
                     .reject(function (id) { return model.isEvent(id); })
                     .map(function (id) { return {id: id, name: model.toElement(id).attributes.name}; })
@@ -22,12 +21,14 @@ exports.rules = [
                     .filter(function (id) { return model.isEvent(id); })
                     .filter(function (id) { return model.getOutbounds(id).length; })
                     .map(function (id) { return model.toElement(id); })
-                    .map(function (event) { return { id: model.toId(event), name: event.attributes.name}; })
+                    .map(function (event) { return { id: model.toId(event), name: event.attributes.name, stereotype: event.attributes.stereotype }; })
                     .value(),
                 obj = {
-                    widgets: {children: 'w-' + id}
+                    controls: {children: 'C-' + id}
                 };
-            obj['w-' + id] = {name: id + '.dart', content: require('./templates/nonxor.dart.ejs')({id: id, name: name, children: children, events: events})};
+            //obj['C-' + id] = {isFolder: true, name: 'c-' + id, children: ['C-' + id + '-VM', 'C-' + id + '-V']};
+            obj['C-' + id] = {name: id + '.py', content: require('./templates/nonxor.py.ejs')({id: id, children: children, events: events})};
+
             return obj;
         }
     ),
@@ -35,29 +36,29 @@ exports.rules = [
         function (element, model) { return model.isViewContainer(element) && model.isXOR(element); },
         function (container, model) {
             var id = model.toId(container),
-                name = container.attributes.name,
                 children = _.chain(model.getChildren(container))
                     .filter(function (id) { return model.isViewContainer(id); })
                     .map(function (id) { return model.toElement(id); })
                     .map(function (e) { return {id: e.id, name: e.attributes.name}; })
                     .value(),
-                events = _.chain(model.getChildren(container))
-                    .filter(function (id) { return model.isEvent(id); })
-                    .filter(function (id) { return model.getOutbounds(id).length; })
-                    .map(function (id) { return model.toElement(id); })
-                    .map(function (event) { return { id: model.toId(event), name: event.attributes.name}; })
-                    .value(),
-                landmarks = _.chain(children)
-                    .filter(function (c) { return model.isLandmark(c.id); })
-                    .value(),
                 defaultChild = _.chain(model.getChildren(container))
                     .filter(function (id) { return model.isDefault(id); })
                     .first()
                     .value(),
+                landmarks = _.chain(children)
+                    .filter(function (c) { return model.isLandmark(c.id); })
+                    .value(),
+                events = _.chain(model.getChildren(container))
+                    .filter(function (id) { return model.isEvent(id); })
+                    .filter(function (id) { return model.getOutbounds(id).length; })
+                    .map(function (id) { return model.toElement(id); })
+                    .map(function (event) { return { id: model.toId(event), name: event.attributes.name, stereotype: event.attributes.stereotype }; })
+                    .value(),
                 obj = {
-                    widgets: {children: 'w-' + id}
+                    controls: {children: 'C-' + id}
                 };
-            obj['w-' + id] = {name: id + '.dart', content: require('./templates/xor.dart.ejs')({id: id, name: name, children: children, defaultChild: defaultChild, events: events, landmarks: landmarks})};
+            //obj['C-' + id] = {isFolder: true, name: 'c-' + id, children: ['C-' + id + '-VM', 'C-' + id + '-V']};
+              obj['C-' + id] = {name: id + '.py', content: require('./templates/xor.py.ejs')({children: children, landmarks: landmarks, events: events})};
             return obj;
         }
     )
