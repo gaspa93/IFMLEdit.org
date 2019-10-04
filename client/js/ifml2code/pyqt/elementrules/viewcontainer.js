@@ -58,7 +58,7 @@ exports.rules = [
                     controls: {children: 'C-' + id}
                 };
             //obj['C-' + id] = {isFolder: true, name: 'c-' + id, children: ['C-' + id + '-VM', 'C-' + id + '-V']};
-              obj['C-' + id] = {name: id + '.py', content: require('./templates/xor.py.ejs')({children: children, landmarks: landmarks, events: events})};
+              obj['C-' + id] = {name: id + '.py', content: require('./templates/xor.py.ejs')({id: id, children: children, landmarks: landmarks, events: events})};
             return obj;
         }
     )

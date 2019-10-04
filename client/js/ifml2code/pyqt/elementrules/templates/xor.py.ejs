@@ -1,5 +1,4 @@
 from PyQt4 import QtGui
-
 <% for (var i = 0; i < children.length; i++) { -%>
 import <%=children[i].id %> as C<%=i %>
 <% }
@@ -7,13 +6,20 @@ import <%=children[i].id %> as C<%=i %>
 import ../events/<%=events[i].id %> as E<%=i %>
 <% } -%>
 
-def widget():
-    w = QtGui.QWidget()
-    w.setGeometry(100,100,200,50)
-    w.setWindowTitle("<%= landmarks %>")
+def setupUi():
 
-    b = QtGui.QLabel(w)
-    b.setText("Text from <%= id %>")
-    b.move(50,20)
+    w = QtGui.QWidget()
+    w.setGeometry(100,100,700,600)
+    w.setWindowTitle("<%=id %>")
+
+    tabWidget = QtGui.QTabWidget(w)
+    tabWidget.setGeometry(30, 30, 621, 531)
+
+<% for (var i = 0; i < children.length; i++) { -%>
+    tab = QtGui.QWidget()
+    tab.setGeometry(10, 10, 601, 471)
+    tab.setObjectName("<%=children[i].id %>")
+    tabWidget.addTab(tab)
+<% } -%>
 
     return w
