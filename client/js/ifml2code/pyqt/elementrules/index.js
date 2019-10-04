@@ -8,7 +8,7 @@ var _ = require('lodash');
 
 exports.rules = _([])
                 .concat(require('./viewcontainer').rules)
-                //.concat(require('./viewcomponent').rules)
+                .concat(require('./viewcomponent').rules)
                 //.concat(require('./navigationflow').rules)
                 //.concat(require('./action').rules)
                 //.concat(require('./systemEvent').rules)

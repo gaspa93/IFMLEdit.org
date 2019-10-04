@@ -49,13 +49,12 @@ exports.rules = [
             return {
                 '': {isFolder: true, children: 'pyqtexample'},
                 'pyqtexample' : { isFolder: true, name: 'pyqtexample', children: ['lib']},
-                'lib': {isFolder: true, name: 'lib', children: ['controls']},
+                'lib': {isFolder: true, name: 'lib', children: ['controls']},  // , 'repositories', 'events'
                 'controls': {isFolder: true, name: 'controls', children: ['main', 'mainapp']},
                 'main': {name: 'main.py', content: require('./templates/main.py.ejs')()},
                 'mainapp': {name: 'mainapp.py', content: require('./templates/mainapp.py.ejs')({children: children, defaultChild: defaultChild, landmarks: landmarks})},
-                'events': {isFolder: true, name: 'events', children: []},
-                'repositories': {isFolder: true, name: 'repositories', children: ['repogen']},
-                'repogen':{name: 'gendata.py', content: require('./templates/dataconnection.py.ejs')()}
+                //'repositories': {isFolder: true, name: 'repositories'},
+                //'events': {isFolder: true, name: 'events'}
                 //'commands': {name: 'commands.dart', content: require('./templates/commands.dart.ejs')()},
                 //'pubspec': {name: 'pubspec.yaml', content: require('./templates/pubspec.yaml.ejs')()},
             };
@@ -80,7 +79,7 @@ exports.rules = [
                   })
                   .value(),
               obj = {
-                  'repositories': {children: _.map(collections, function (c) { return c.name + '-Repository'; })},
+                  'repositories': {children: _.map(collections, function (c) { return c.name; })},
               };
           _.each(collections, function (c) {
               obj[c.name] = {name: c.name + '.json', content: require('./templates/repository.json.ejs')({name: c.name, fields: c.fields})};

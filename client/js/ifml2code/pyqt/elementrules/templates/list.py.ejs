@@ -1,6 +1,6 @@
 from PyQt4.QtGui import QListView, QStandardItemModel, QStandardItem
 
-# import ../repositories/<%=collection %>
+import ../repositories/<%=collection %>
 <% if (selection) { -%>
 import ../events/<%=selection.id %> as selected
 <% }
@@ -18,8 +18,8 @@ def setupElem():
 
     # add elements to list
 <% for (var i = 0; i < fields.length; i += 1) { -%>
-    model.appendRow(QStandardItem(<%=fields[i] %>))
-<%     }} -%>
+    model.appendRow(QStandardItem("<%=collection[i] %>"))
+<%     } -%>
 
     # Apply the model to the list view
     list.setModel(model)
