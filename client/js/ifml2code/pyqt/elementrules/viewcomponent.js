@@ -50,9 +50,8 @@ exports.rules = [
                 obj = {
                     controls: {children: 'C-' + id}
                 };
-            obj['C-' + id] = {isFolder: true, name: 'c-' + id, children: ['C-' + id + '-VM', 'C-' + id + '-V']};
-            obj['C-' + id + '-VM'] = {name: 'index.js', content: require('./templates/list-vm.js.ejs')({id: id, selection: selection, collection: collection, filters: filters, fields: fields, incomings: incomings})};
-            obj['C-' + id + '-V'] = {name: 'index.html', content: require('./templates/list-v.html.ejs')({name: name, events: events, fields: fields, showSelection: showSelection})};
+            //obj['C-' + id] = {isFolder: true, name: 'c-' + id, children: ['C-' + id + '-VM', 'C-' + id + '-V']};
+            obj['C-' + id] = {name: id + '.py', content: require('./templates/list.py.ejs')({id: id, selection: selection, showSelection: showSelection, collection: collection, filters: filters, fields: fields, incomings: incomings, events: events})};
             return obj;
         }
     ),
@@ -80,9 +79,8 @@ exports.rules = [
                 obj = {
                     controls: {children: 'C-' + id}
                 };
-            obj['C-' + id] = {isFolder: true, name: 'c-' + id, children: ['C-' + id + '-VM', 'C-' + id + '-V']};
-            obj['C-' + id + '-VM'] = {name: 'index.js', content: require('./templates/details-vm.js.ejs')({id: id, collection: collection, fields: fields, incomings: incomings})};
-            obj['C-' + id + '-V'] = {name: 'index.html', content: require('./templates/details-v.html.ejs')({name: name, events: events, fields: fields})};
+            //obj['C-' + id] = {isFolder: true, name: 'c-' + id, children: ['C-' + id + '-VM', 'C-' + id + '-V']};
+            obj['C-' + id] = {name: id + '.py', content: require('./templates/details.py.ejs')({id: id, name: name, events: events, collection: collection, fields: fields, incomings: incomings})};
             return obj;
         }
     ),
@@ -109,9 +107,8 @@ exports.rules = [
                 obj = {
                     controls: {children: 'C-' + id}
                 };
-            obj['C-' + id] = {isFolder: true, name: 'c-' + id, children: ['C-' + id + '-VM', 'C-' + id + '-V']};
-            obj['C-' + id + '-VM'] = {name: 'index.js', content: require('./templates/form-vm.js.ejs')({id: id, fields: fields, incomings: incomings})};
-            obj['C-' + id + '-V'] = {name: 'index.html', content: require('./templates/form-v.html.ejs')({id: id, name: name, events: events, fields: fields})};
+            //obj['C-' + id] = {isFolder: true, name: 'c-' + id, children: ['C-' + id + '-VM', 'C-' + id + '-V']};
+            obj['C-' + id] = {name: id + '.py', content: require('./templates/form.py.ejs')({id: id, name: name, events: events, fields: fields, incomings: incomings})};
             return obj;
         }
     )

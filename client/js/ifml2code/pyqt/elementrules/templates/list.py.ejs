@@ -1,4 +1,4 @@
-from PyQt4 import QtGui
+from PyQt4.QtGui import QListView, QStandardItemModel, QStandardItem
 
 # import ../repositories/<%=collection %>
 <% if (selection) { -%>
@@ -8,9 +8,20 @@ import ../events/<%=selection.id %> as selected
 import ../events/<%=events[i].id %> as E<%=i %>
 <% } -%>
 
-def widget():
-    w = QtGui.QWidget()
-    w.setGeometry(100,100,200,50)
-    w.setWindowTitle("<%=name %>")
+def setupElem():
+    # Our main window will be a QListView
+    list = QListView()
+    list.setMinimumSize(400, 200)
 
-    return w
+    # Create an empty model for the list's data
+    model = QStandardItemModel(list)
+
+    # add elements to list
+<% for (var i = 0; i < fields.length; i += 1) { -%>
+    model.appendRow(QStandardItem(<%=fields[i] %>))
+<%     }} -%>
+
+    # Apply the model to the list view
+    list.setModel(model)
+
+    return list

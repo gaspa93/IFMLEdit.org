@@ -52,10 +52,10 @@ exports.rules = [
                 'lib': {isFolder: true, name: 'lib', children: ['controls']},
                 'controls': {isFolder: true, name: 'controls', children: ['main', 'mainapp']},
                 'main': {name: 'main.py', content: require('./templates/main.py.ejs')()},
-                'mainapp': {name: 'mainapplication.py', content: require('./templates/mainapp.py.ejs')({children: children, defaultChild: defaultChild, landmarks: landmarks})},
-                //'widgets': {isFolder: true, name: 'widgets'},
-                //'events': {isFolder: true, name: 'events'},
-                //'repositories': {isFolder: true, name: 'repositories'},
+                'mainapp': {name: 'mainapp.py', content: require('./templates/mainapp.py.ejs')({children: children, defaultChild: defaultChild, landmarks: landmarks})},
+                'events': {isFolder: true, name: 'events', children: []},
+                'repositories': {isFolder: true, name: 'repositories', children: ['repogen']},
+                'repogen':{name: 'gendata.py', content: require('./templates/dataconnection.py.ejs')()}
                 //'commands': {name: 'commands.dart', content: require('./templates/commands.dart.ejs')()},
                 //'pubspec': {name: 'pubspec.yaml', content: require('./templates/pubspec.yaml.ejs')()},
             };
@@ -83,9 +83,7 @@ exports.rules = [
                   'repositories': {children: _.map(collections, function (c) { return c.name + '-Repository'; })},
               };
           _.each(collections, function (c) {
-              //obj[c.name + '-Repository'] = {isFolder: true, name: c.name, children: [c.name + '-Repository-Index', c.name + '-Repository-Default']};
-              //obj[c.name + '-Repository-Index'] = {name: 'index.js', content: require('./templates/repository.js.ejs')({name: c.name})};
-              //obj[c.name + '-Repository-Default'] = {name: 'default.json', content: require('./templates/default.json.ejs')({fields: c.fields})};
+              obj[c.name] = {name: c.name + '.json', content: require('./templates/repository.json.ejs')({name: c.name, fields: c.fields})};
           });
           return obj;
       }

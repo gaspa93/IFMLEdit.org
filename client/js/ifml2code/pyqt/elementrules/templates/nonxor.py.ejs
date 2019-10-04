@@ -7,13 +7,12 @@ import ../events/<%=events[i].id %> as E<%=i %>
 <% } -%>
 
 def setupUi():
-    w = QtGui.QWidget()
-    w.setGeometry(100,100,200,50)
-    w.setObjectName("<%=id %>")
+    view = QtGui.QWidget()
+    view.setObjectName("<%=id %>")
 
-    # content based on children
-    # b = QtGui.QLabel(w)
-    # b.setText("Text from <%=id %>")
-    # b.move(50,20)
+<% for (var i = 0; i < children.length; i++) { -%>
+    elem<%=i %> = C<%=i %>.setupElem()
+    view.addRow(elem<%=i %>)
+<% } -%>
 
-    return w
+    return view
