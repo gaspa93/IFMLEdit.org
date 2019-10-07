@@ -1,4 +1,8 @@
-from mainapp import mainapplication
+from PyQt4 import QtGui
+from mainapp import MainWindow
+import sys
 
 if __name__ == '__main__':
-   mainapplication()
+    app = QtGui.QApplication(sys.argv)
+    GUI = MainWindow()
+    sys.exit(app.exec_())

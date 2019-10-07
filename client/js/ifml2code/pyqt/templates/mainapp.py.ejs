@@ -1,12 +1,13 @@
 import sys
-from PyQt4 import QtGui
+from PyQt4.QtGui import QMainWindow
 
-# import other windows and actions as functions
+# import other windows and actions as subwindow classes
 <% for (var i = 0; i < children.length; i++) { -%>
 from <%=children[i] %> import Window as C<%=i %>
 <% } -%>
 
-class MainWindow(QtGui.QMainWindow):
+class MainWindow(QMainWindow):
+
     # init main window
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -15,26 +16,41 @@ class MainWindow(QtGui.QMainWindow):
 
         # define main menu
         mainMenu = self.menuBar()
-        fileMenu = mainMenu.addMenu('&Menu')
+        self.fileMenu = mainMenu.addMenu('&Menu')
 
-        # add non-xor pages
+        # define central widget
+        centralWidget = QtGui.QWidget()
+        centralLayout = QtGui.QVBoxLayout()
+
+        # add stacked windows
+        self.stack = QtGui.QStackedWidget(self)
+
+        # add windows
+<% for (var i = 0; i < children.length; i++) {-%>
+        self.childWindow<%=i %> = C<%=i %>(self)
+        self.stack.addWidget(self.childWindow<%=i %>)
+<% } -%>
+
+       # add events to change window from menu
 <% for (var i = 0; i < children.length; i++) {-%>
         windowAction<%=i %> = QtGui.QAction("&<%=children[i] %>", self)
-        windowAction<%=i %>.triggered.connect(self.handleWindow<%=i %>)
-        fileMenu.addAction(windowAction<%=i %>)
-<% } -%>
-        self.home()
-
-<% for (var i = 0; i < children.length; i++) {-%>
-    def handleWindow<%=i %>(self):
-        self.childWindow = C<%=i %>(self)
+        windowAction<%=i %>.triggered.connect(lambda: self.stack.setCurrentIndex(<%=i %>))
+        self.fileMenu.addAction(windowAction<%=i %>)
 <% } -%>
 
-    def home(self):
+        # add close button to central widget
         btn = QtGui.QPushButton("Quit", self)
         btn.clicked.connect(self.close_application)
         btn.resize(btn.minimumSizeHint())
-        btn.move(0,100)
+        self.closeb = btn
+
+        centralLayout.addWidget(self.stack)
+        centralLayout.addWidget(self.closeb)
+
+        # set central widget for main window
+        centralWidget.setLayout(centralLayout)
+        self.setCentralWidget(centralWidget)
+
         self.show()
 
     def close_application(self):

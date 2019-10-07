@@ -10,14 +10,12 @@ class Window(QtGui.QTabWidget):
     def __init__(self,parent):
         QtGui.QWidget.__init__(self,parent)
 
-        <% for (var i = 0; i < children.length; i++) { -%>
-            tab = C<%=i %>.setupElem()
-            tab.setObjectName("<%=children[i].id %>")
-            self.addTab(tab)
-        <% } -%>
-
+<% for (var i = 0; i < children.length; i++) { -%>
+        tab = C<%=i %>.setupElem()
+        tab.setObjectName("<%=children[i].id %>")
+        self.addTab(tab)
+<% } -%>
         layout=QtGui.QHBoxLayout()
-        layout.addWidget(self.elem0)
         self.setLayout(layout)
 
         self.show()

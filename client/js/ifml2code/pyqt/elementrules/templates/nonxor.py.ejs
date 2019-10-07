@@ -1,21 +1,22 @@
-from PyQt4 import QtGui
+from PyQt4.QtGui import QWidget, QVBoxLayout, QLabel
 <% for (var i = 0; i < children.length; i++) { -%>
-import <%=children[i].id %> as C<%=i %>
+from <%=children[i].id %> import Element as C<%=i %>
 <% }
    for (var i = 0; i < events.length; i++) { -%>
 import ../events/<%=events[i].id %> as E<%=i %>
 <% } -%>
 
-class Window(QtGui.QWidget):
+class Window(QWidget):
     def __init__(self,parent):
-        QtGui.QWidget.__init__(self,parent)
+        QWidget.__init__(self, parent)
+        layout = QVBoxLayout()
 
-        <% for (var i = 0; i < children.length; i++) { -%>
-            self.elem<%=i %> = C<%=i %>.setupElem()
-        <% } -%>
+        header = QLabel()
+        header.setText("<%=id %>")
+        layout.addWidget(header)
 
-        layout=QtGui.QHBoxLayout()
-        layout.addWidget(self.elem0)
+<% for (var i = 0; i < children.length; i++) { -%>
+        self.elem<%=i %> = C<%=i %>(self)
+        layout.addWidget(self.elem<%=i %>)
+<% } -%>
         self.setLayout(layout)
-
-        self.show()

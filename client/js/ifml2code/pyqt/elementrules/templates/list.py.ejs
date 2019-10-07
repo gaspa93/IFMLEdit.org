@@ -1,4 +1,4 @@
-from PyQt4.QtGui import QListView, QStandardItemModel, QStandardItem
+from PyQt4.QtGui import QWidget, QVBoxLayout, QLabel
 import json
 <% if (selection) { -%>
 import ../events/<%=selection.id %> as selected
@@ -7,22 +7,22 @@ import ../events/<%=selection.id %> as selected
 import ../events/<%=events[i].id %> as E<%=i %>
 <% } -%>
 
-def setupElem():
-    # Our main window will be a QListView
-    list = QListView()
-    list.setMinimumSize(400, 200)
+class Element(QWidget):
 
-    # Create an empty model for the list's data
-    model = QStandardItemModel(list)
+    def __init__(self,parent):
+        QWidget.__init__(self,parent)
+        layout = QVBoxLayout()
 
-    # add elements to list from JSON default file
-    data = json.load(open("../repositories/<%=collection %>.json"))
-    for elem in data:
+        # add elements to list from JSON default file
+        data = json.load(open("../repositories/<%=collection %>.json"))
+        for elem in data:
+            label = QLabel()
+            elemtext = elem["id"]
 <% for (var i = 0; i < fields.length; i += 1) { -%>
-        model.appendRow(QStandardItem(elem["id"] + ", " + elem["<%=fields[i] %>"]))
+            elemtext += ", " + elem["<%=fields[i] %>"])
 <%     } -%>
+            label.setText(elemtext)
+            layout.addWidget(label)
 
-    # Apply the model to the list view
-    list.setModel(model)
-
-    return list
+        layout.addStretch(1)
+        self.setLayout(layout)
