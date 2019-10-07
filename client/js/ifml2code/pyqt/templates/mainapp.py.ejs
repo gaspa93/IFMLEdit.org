@@ -3,29 +3,39 @@ from PyQt4 import QtGui
 
 # import other windows and actions as functions
 <% for (var i = 0; i < children.length; i++) { -%>
-import <%=children[i] %> as C<%=i %>
+from <%=children[i] %> import Window as C<%=i %>
 <% } -%>
 
-def mainapplication():
+class MainWindow(QtGui.QMainWindow):
+    # init main window
+    def __init__(self):
+        super(MainWindow, self).__init__()
+        self.setGeometry(100,100,700,600)
+        self.setWindowTitle("Main Application Window")
 
-    app = QtGui.QApplication(sys.argv)
+        # define main menu
+        mainMenu = self.menuBar()
+        fileMenu = mainMenu.addMenu('&Menu')
 
-    # main window
-    mainw = QtGui.QWidget()
-    mainw.setGeometry(100,100,700,600)
-    mainw.setWindowTitle("Main Application Window")
-
-    # set tab widgest as default
-    tabWidget = QtGui.QTabWidget(mainw)
-    tabWidget.setGeometry(30, 30, 621, 531)
-
-    # show windows as tab
+        # add non-xor pages
 <% for (var i = 0; i < children.length; i++) {-%>
-    w<%=i %> = C<%=i %>.setupUi()
-    tabWidget.addTab(w<%=i %>, "<%=children[i] %>")
+        windowAction<%=i %> = QtGui.QAction("&<%=children[i] %>", self)
+        windowAction<%=i %>.triggered.connect(self.handleWindow<%=i %>)
+        fileMenu.addAction(windowAction<%=i %>)
+<% } -%>
+        self.home()
+
+<% for (var i = 0; i < children.length; i++) {-%>
+    def handleWindow<%=i %>(self):
+        self.childWindow = C<%=i %>(self)
 <% } -%>
 
-    mainw.show()
+    def home(self):
+        btn = QtGui.QPushButton("Quit", self)
+        btn.clicked.connect(self.close_application)
+        btn.resize(btn.minimumSizeHint())
+        btn.move(0,100)
+        self.show()
 
-    # enter the main loop of the application
-    sys.exit(app.exec_())
+    def close_application(self):
+        sys.exit()

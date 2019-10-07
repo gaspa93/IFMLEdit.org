@@ -1,6 +1,5 @@
 from PyQt4.QtGui import QListView, QStandardItemModel, QStandardItem
-
-import ../repositories/<%=collection %>
+import json
 <% if (selection) { -%>
 import ../events/<%=selection.id %> as selected
 <% }
@@ -16,9 +15,11 @@ def setupElem():
     # Create an empty model for the list's data
     model = QStandardItemModel(list)
 
-    # add elements to list
+    # add elements to list from JSON default file
+    data = json.load(open("../repositories/<%=collection %>.json"))
+    for elem in data:
 <% for (var i = 0; i < fields.length; i += 1) { -%>
-    model.appendRow(QStandardItem("<%=collection[i] %>"))
+        model.appendRow(QStandardItem(elem["id"] + ", " + elem["<%=fields[i] %>"]))
 <%     } -%>
 
     # Apply the model to the list view

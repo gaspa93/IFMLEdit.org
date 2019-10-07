@@ -6,13 +6,16 @@ import <%=children[i].id %> as C<%=i %>
 import ../events/<%=events[i].id %> as E<%=i %>
 <% } -%>
 
-def setupUi():
-    view = QtGui.QWidget()
-    view.setObjectName("<%=id %>")
+class Window(QtGui.QWidget):
+    def __init__(self,parent):
+        QtGui.QWidget.__init__(self,parent)
 
-<% for (var i = 0; i < children.length; i++) { -%>
-    elem<%=i %> = C<%=i %>.setupElem()
-    view.addRow(elem<%=i %>)
-<% } -%>
+        <% for (var i = 0; i < children.length; i++) { -%>
+            self.elem<%=i %> = C<%=i %>.setupElem()
+        <% } -%>
 
-    return view
+        layout=QtGui.QHBoxLayout()
+        layout.addWidget(self.elem0)
+        self.setLayout(layout)
+
+        self.show()

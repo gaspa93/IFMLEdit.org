@@ -49,11 +49,11 @@ exports.rules = [
             return {
                 '': {isFolder: true, children: 'pyqtexample'},
                 'pyqtexample' : { isFolder: true, name: 'pyqtexample', children: ['lib']},
-                'lib': {isFolder: true, name: 'lib', children: ['controls']},  // , 'repositories', 'events'
+                'lib': {isFolder: true, name: 'lib', children: ['controls', 'repositories']},  // , 'events'
                 'controls': {isFolder: true, name: 'controls', children: ['main', 'mainapp']},
                 'main': {name: 'main.py', content: require('./templates/main.py.ejs')()},
                 'mainapp': {name: 'mainapp.py', content: require('./templates/mainapp.py.ejs')({children: children, defaultChild: defaultChild, landmarks: landmarks})},
-                //'repositories': {isFolder: true, name: 'repositories'},
+                'repositories': {isFolder: true, name: 'repositories'}
                 //'events': {isFolder: true, name: 'events'}
                 //'commands': {name: 'commands.dart', content: require('./templates/commands.dart.ejs')()},
                 //'pubspec': {name: 'pubspec.yaml', content: require('./templates/pubspec.yaml.ejs')()},
