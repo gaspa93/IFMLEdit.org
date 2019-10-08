@@ -48,9 +48,9 @@ exports.rules = [
                   .value();
             return {
                 '': {isFolder: true, children: 'pyqtexample'},
-                'pyqtexample' : { isFolder: true, name: 'pyqtexample', children: ['lib']},
+                'pyqtexample' : { isFolder: true, name: 'pyqtexample', children: ['lib', 'main']},
                 'lib': {isFolder: true, name: 'lib', children: ['controls', 'repositories']},  // , 'events'
-                'controls': {isFolder: true, name: 'controls', children: ['main', 'mainapp']},
+                'controls': {isFolder: true, name: 'controls', children: ['mainapp']},
                 'main': {name: 'main.py', content: require('./templates/main.py.ejs')()},
                 'mainapp': {name: 'mainapp.py', content: require('./templates/mainapp.py.ejs')({children: children, defaultChild: defaultChild, landmarks: landmarks})},
                 'repositories': {isFolder: true, name: 'repositories'}

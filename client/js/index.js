@@ -15,13 +15,13 @@ var _ = require('lodash'),
     FileReader = require('FileReader'),
     createBoard = require('almost-joint').createBoard,
     ifml = require('./ifml').ifml,
-    pcn = require('./pcn').pcn,
-    ifml2pcn = require('./ifml2pcn').ifml2pcn,
+    //pcn = require('./pcn').pcn,
+    //ifml2pcn = require('./ifml2pcn').ifml2pcn,
     defaultLink = require('./defaultlink').defaultLink,
     isValidParent = require('./isvalidparent').isValidParent,
-    createStatisticsMenu = require('./statistics').StatisticsMenu,
+    //createStatisticsMenu = require('./statistics').StatisticsMenu,
     createModalEdit = require('./modaledit').ModalEdit,
-    createModalStatistics = require('./modalstatistics').ModalStatistics,
+    //createModalStatistics = require('./modalstatistics').ModalStatistics,
     createModalDB = require('./modaldb').ModalDB,
     createModalExamples = require('./modalexamples').ModalExamples,
     examples = require('./examples').examples,
@@ -46,8 +46,8 @@ var ifmlModel = new joint.dia.Graph(),
         builders: ifmlBuilders,
         width: 170
     }),
-    statisticsModel = new joint.dia.Graph(),
-    statisticsBoard = createBoard({
+    //statisticsModel = new joint.dia.Graph(),
+    /* statisticsBoard = createBoard({
         el: '#statistics > .board',
         model: statisticsModel,
         defaultLink: defaultLink,
@@ -109,13 +109,13 @@ var ifmlModel = new joint.dia.Graph(),
         repeat: '#web-server .ifbrowser-repeat',
         go: '#web-server .ifbrowser-go',
         BASE_PATH: BASE_PATH + 'web-server/'
-    }),
+    }), */
     ifclient = createIFClient({el: '#web-client .ifclient', BASE_PATH: BASE_PATH + 'web-client/'}),
     ifmobile = createIFClient({el: '#mobile .ifmobile-wrapper', BASE_PATH: BASE_PATH + 'mobile/', scrolling: 'no'});
 
 ifmlBoard.zoomE();
-statisticsBoard.zoomE();
-pcnBoard.zoomE();
+//statisticsBoard.zoomE();
+//pcnBoard.zoomE();
 
 function editIfmlElement(cellView) {
     createModalEdit({cell: cellView.model, board: ifmlBoard});
@@ -130,8 +130,8 @@ function showElementStatistics(cellView) {
 }
 
 ifmlBoard.on('cell:edit cell:pointerdblclick link:options', editIfmlElement);
-statisticsBoard.on('cell:statistics cell:pointerdblclick link:options', showElementStatistics);
-pcnBoard.on('cell:edit cell:pointerdblclick', editPcnElement);
+//statisticsBoard.on('cell:statistics cell:pointerdblclick link:options', showElementStatistics);
+//pcnBoard.on('cell:edit cell:pointerdblclick', editPcnElement);
 
 var loaded_at = new Date();
 
@@ -208,7 +208,7 @@ $('#ifml > .sidebar .modal-example').click(function () {
     }});
     return false;
 }).click();
-
+/*
 $('#statistics > input[type=file]').change(function () {
     var reader = new FileReader(),
         model = ifml.toJSON(ifmlModel);
@@ -390,7 +390,7 @@ $('#mobile .zip-try').click(function () {
     }
     return false;
 });
-
+*/
 $('#pyqt .zip-download').click(function () {
     try {
         var start = new Date();
@@ -420,7 +420,7 @@ $('#pyqt .zip-try').click(function () {
     }
     return false;
 });
-
+/*
 $('#web-server .edit-db').click(function () {
     createModalDB({emulator: ifbrowser});
     return false;
@@ -434,11 +434,11 @@ $('#web-client .edit-db').click(function () {
 $('#mobile .edit-db').click(function () {
     createModalDB({emulator: ifmobile});
     return false;
-});
+}); */
 
 $('#pyqt .edit-db').click(function () {
     createModalDB({emulator: pyqt});
     return false;
 });
 
-$('#pcn').removeClass('active');
+//$('#pcn').removeClass('active');
