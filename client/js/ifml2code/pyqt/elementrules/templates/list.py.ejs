@@ -14,7 +14,7 @@ class Element(QWidget):
         layout = QVBoxLayout()
 
         # add elements to list from JSON default file
-        data = json.load(open("../repositories/<%=collection %>.json"))
+        data = json.load(open("lib/repositories/<%=collection %>.json"))
         for elem in data:
             label = QLabel()
             elemtext = elem["id"]

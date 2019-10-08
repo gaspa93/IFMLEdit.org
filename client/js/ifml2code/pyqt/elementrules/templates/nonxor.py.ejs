@@ -1,9 +1,9 @@
 from PyQt4.QtGui import QWidget, QVBoxLayout, QLabel
 <% for (var i = 0; i < children.length; i++) { -%>
-from <%=children[i].id %> import Element as C<%=i %>
+from lib.controls.<%=children[i].id %> import Element as C<%=i %>
 <% }
    for (var i = 0; i < events.length; i++) { -%>
-import ../events/<%=events[i].id %> as E<%=i %>
+import lib.events.<%=events[i].id %> as E<%=i %>
 <% } -%>
 
 class Window(QWidget):
